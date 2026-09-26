@@ -1,0 +1,24 @@
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+backend/.env
+frontend/.env.local
+
+# PHP / Laravel
+backend/vendor/
+backend/storage/logs/*.log
+backend/storage/framework/cache/data/*
+backend/storage/framework/sessions/*
+backend/storage/framework/views/*
+backend/bootstrap/cache/*.php
+
+# Vue / Node
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+
+# Python worker environments
+workers/.venv/
+workers/__pycache__/
+*.py[cod]
