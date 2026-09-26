@@ -63,6 +63,14 @@ Create a user through registration, then grant the first administrator with `php
 
 The local XAMPP database may still have earlier migrations pending; inspect `php artisan migrate:status` and make a database backup before applying migrations to an existing database.
 
+## Production dashboard
+
+The signed-in dashboard is `/dashboard` and requires `projects.view`. `GET /api/v1/dashboard` returns project/video aggregates, stage work item counts, recent project and activity records, live queue counters, and system probes. Dashboard records are persisted in the `projects`, `production_work_items`, `videos`, `production_activities`, `queue_job_metrics`, and `queue_worker_heartbeats` tables; no sample production records are seeded.
+
+Set `DASHBOARD_QUEUES` to a comma-separated list of Redis queue names used by workers. Queue lifecycle events record completed/failed history, and Laravel queue workers publish a database heartbeat while polling. Configure `PYTHON_WORKER_HEALTH_URL` to the worker's real health endpoint; an unset endpoint is shown as not configured. FFmpeg is checked by running `FFMPEG_BINARY -version`, and storage health performs a temporary write/delete on the configured default disk.
+
+The Phase 3 migration adds dashboard and queue tracking tables. Run it only after checking the earlier pending migrations and backing up an existing database.
+
 ## Structure and conventions
 
 - `backend/app/Http/Requests/Api`: validation belongs in Form Requests. The API base request denies authorization by default, so concrete requests must explicitly authorize access. Return Laravel's standard JSON validation errors (`422`, `message`, `errors`) and keep policies explicit.

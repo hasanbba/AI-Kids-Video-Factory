@@ -29,6 +29,7 @@ async function signOut() {
         </RouterLink>
         <nav class="flex items-center gap-4 text-sm font-medium">
           <template v-if="isAuthenticated">
+            <RouterLink v-if="auth.can('projects.view')" class="text-slate-700 hover:text-indigo-700" :to="{ name: 'dashboard' }">Dashboard</RouterLink>
             <RouterLink class="text-slate-700 hover:text-indigo-700" :to="{ name: 'profile' }">Profile</RouterLink>
             <RouterLink v-if="auth.canAny(['roles.view', 'permissions.view', 'users.view'])" class="text-slate-700 hover:text-indigo-700" :to="{ name: 'admin-access' }">Access management</RouterLink>
             <button class="text-slate-600 hover:text-red-700" :disabled="auth.loading" @click="signOut">Sign out</button>

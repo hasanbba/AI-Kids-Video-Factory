@@ -20,6 +20,7 @@ const router = createRouter({
     { path: '/reset-password', name: 'reset-password', component: () => import('@/views/auth/ResetPasswordView.vue'), meta: { guestOnly: true } },
     { path: '/verify-email/:id/:hash', name: 'verify-email', component: () => import('@/views/auth/VerifyEmailView.vue'), meta: { requiresAuth: true } },
     { path: '/profile', name: 'profile', component: () => import('@/views/ProfileView.vue'), meta: { requiresAuth: true } },
+    { path: '/dashboard', name: 'dashboard', component: () => import('@/views/DashboardView.vue'), meta: { requiresAuth: true, permissions: ['projects.view'] } },
     { path: '/admin/access', name: 'admin-access', component: () => import('@/views/admin/AccessManagementView.vue'), meta: { requiresAuth: true, anyPermissions: ['roles.view', 'permissions.view', 'users.view'] } },
   ],
 })
